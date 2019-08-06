@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HelloWorld :message="message" :time="time" />
   </div>
 </template>
 
@@ -12,17 +11,40 @@ export default {
   name: "app",
   components: {
     HelloWorld
+  },
+  data () {
+    return {
+      time: Date.now(),
+      timerId: null
+    }
+  },
+  computed: {
+    message () {
+      console.log('computed')
+      return 'Hello World!'
+    }
+  },
+  created () {
+    console.log('created')
+    this.timerId = setInterval(() => {
+      this.time = Date.now()
+    }, 1500)
+  },
+  mounted () {
+    console.log('mounted')
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate')
+  },
+  updated() {
+    console.log('updated')
+  },
+  beforeDestroy () {
+    console.log('beforeDestroy')
+  },
+  destroyed () {
+    console.log('destroyed')
+    clearInterval(this.timerId)
   }
 };
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
